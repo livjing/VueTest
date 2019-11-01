@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<!--
+		一般有两个目录/文件夹
+		src => 源码
+		dist => distribution 分布,分配=>发布? 
+		-->
+
+		<div id="app">
+			<h2>{{message}}</h2>
+
+
+		</div>
+
+		<template></template>
+
+
+		<script src="js/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "Hello Vue.js!"
+				}
+			});
+		</script>
+	</body>
+</html>

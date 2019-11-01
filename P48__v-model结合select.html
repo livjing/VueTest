@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<div id="app">
+			<h2>{{message}}</h2>
+			
+			<!-- 只能选择一个的代码 -->
+			<!-- 
+			<select name="test1">
+				<option value="水果1">水果1</option>
+				<option value="水果2">水果2</option>
+				<option value="水果3">水果3</option>
+				<option value="水果4">水果4</option>
+				<option value="水果5">水果5</option>
+			</select>
+			-->
+			 
+			 <!-- 使用并未双向绑定数据,错误的写法 -->
+			 <!-- 只有<h2>处显示了默认值 -->
+			 <!-- 
+			<select name="test2">
+				<option value="水果1" v-model="fruit">水果1</option>
+				<option value="水果2" v-model="fruit">水果2</option>
+				<option value="水果3" v-model="fruit">水果3</option>
+				<option value="水果4" v-model="fruit">水果4</option>
+				<option value="水果5" v-model="fruit">水果5</option>
+			</select>
+			<h2>你选择的水果是: {{fruit}}</h2>
+			 -->
+			 
+			<select name="test2" v-model="fruit">
+				<option value="水果1">水果1</option>
+				<option value="水果2">水果2</option>
+				<option value="水果3">水果3</option>
+				<option value="水果4">水果4</option>
+				<option value="水果5">水果5</option>
+			</select>
+			<h2>你选择的水果是: {{fruit}}</h2>
+			
+			<!-- 更简洁的写法,省略value -->
+			<select name="test3" v-model="fruit">
+				<option>水果1</option>
+				<option>水果2</option>
+				<option>水果3</option>
+				<option>水果4</option>
+				<option>水果5</option>
+			</select>
+			<h2>你选择的水果是: {{fruit}}</h2>
+			
+			<!-- 多选 -->
+			<!-- multiple 多选选项 -->
+			<!-- 按住CTRL就可以多选 -->
+			<!-- <select name="test4" v-model="fruits" multiple="multiple"> -->
+			<select name="test4" v-model="fruits" multiple>
+				<option>水果1</option>
+				<option>水果2</option>
+				<option>水果3</option>
+				<option>水果4</option>
+				<option>水果5</option>
+			</select>
+			<h2>你选择的水果是: {{fruits}}</h2>
+			
+		</div>
+		
+		<script src="js/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "Hello Vue.js!",
+					fruit: "水果2",
+					fruits:""
+				}
+			})
+		</script>
+	</body>	
+</html>

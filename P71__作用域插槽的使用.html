@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<!-- 作用域插槽: 父组件替换插槽的标签,但是内容由子组件来提供 -->
+		<!-- 
+		案例:
+		子组件有一组数据: pLanguage: ['C++', 'Java', 'Python', 'Vue']
+		需要在多个界面展示:
+		1.有的水平方面展示
+		2.有的列表方式展示
+		3.有的直接显示数组
+		也就是说内容在子组件上,希望父组件告诉我们如何展示
+		利用slot作用域插槽
+		-->
+
+		<div id="app">
+			<cpn></cpn>
+			
+			<!-- <cpn></cpn> -->
+			<!-- 显然自定义的这个方法很是烦琐 -->
+			<!-- 			
+			<cpn>
+				<span>C++</span>-
+				<span>Java</span>-
+				<span>Python</span>-
+				<span>Vue</span>-
+				<span>Go</span>
+			</cpn>
+			但是如果想自己遍历,也不行,因为父组件中无法访问子组件中的data
+			<span v-for="item in pLanguages">{{item}}</span>
+			-->
+			<!-- 重点在于父组件如何获取子组件的数据 -->
+			<!-- 兼容性问题: 新旧版都可以template, 新版的可以使用div等,但旧版不能使用 -->
+			<cpn>
+				<!-- slot-scope相当于可以访问slot的作用域 -->
+				<template slot-scope="slot">
+					<!-- 显然最后一个也有 / ,不舒服 -->
+					<!-- <span v-for="item in slot.data">{{item}} / </span> -->
+					
+					<!-- 使用字符串数组拼接 -->
+					<span>{{slot.data.join(' - ')}}</span>
+				</template>
+			</cpn>
+			
+			<cpn>
+				<div slot-scope="slot">
+					<!-- <span v-for="item in slot.data">{{item}} * </span> -->
+					<!-- 使用字符串数组拼接 -->
+					<span>{{slot.data.join(' * ')}}</span>
+				</div>
+			</cpn>
+		</div>
+
+		<template id="cpn">
+			<div>
+				<!-- 默认直接写,父组件展示时无法修改 -->
+				<!-- 			
+				<ul>
+					<li v-for="item in pLanguages">{{item}}</li>
+				</ul> 
+				-->
+
+				<!-- 加入slot,让父组件可以修改,但父组件无法访问子组件的data,仍然烦琐 -->
+				<!-- 
+				<slot>
+					<ul>
+						<li v-for="item in pLanguages">{{item}}</li>
+					</ul>
+				</slot>
+				-->
+				 
+				<!-- data名字可以自定义,将子组件的data在slot的作用域中留了访问的链接 -->
+				<!-- 相当于给了数据能访问的指针或引用 -->
+				<slot :data="pLanguages">
+					<ul>
+						<li v-for="item in pLanguages">{{item}}</li>
+					</ul>
+				</slot>
+
+			</div>
+		</template>
+
+		<script src="js/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "Hello Vue.js!"
+				},
+				components: {
+					cpn: {
+						template: "#cpn",
+						data() {
+							return {
+								pLanguages: ['C++', 'Java', 'Python', 'Vue', 'Go']
+							}
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<!-- ES6 模块化 -->
+		<!-- export / import -->
+
+		<script type="text/javascript">
+			<!-- ********************************************************* -->
+			<!-- 导出 -->
+			<!-- aaa.js 小明开发的文件 -->
+			var name = '小明'
+			var age = 18
+			var flag = true
+
+			function sum(num1, num2) {
+				return num1 + num2;
+			}
+
+			if (flag) {
+				console.log(sum(10, 20))
+			}
+
+			<!-- 导出想复用的代码 -->
+			<!-- 1 导出方法1 -->
+			export {
+				flag,
+				sum
+			}
+		</script>
+
+
+		<script type="text/javascript">
+			<!--2 导出方法2 -->
+			export var num1 = 1000;
+			export var height = 1.99;
+
+			<!-- 3 直接导出函数或类 -->
+			export function mul(num1, num2) {
+				return num1 * num2;
+			}
+
+			export class Person {
+				run() {
+					console.log('run ...')
+				}
+			}
+
+			// export default
+			// 同一个里面只能有一个default
+			// const address = '北京市';
+			// export default address;
+
+			const
+			default
+
+			function(argument) {
+				console.log(argument);
+			}
+		</script>
+
+
+		<script type="text/javascript">
+			// bbb.js 小红开发的文件
+			var name = '小红'
+			var age = 18
+			var flag = true
+
+			function sum(num1, num2) {
+				return num1 + num2;
+			}
+
+			if (flag) {
+				console.log(sum(10, 20))
+			}
+		</script>
+
+		<script type="text/javascript">
+			// mmm.js 小明又开发的文件
+
+			// 导入想复用的代码
+			// 1.导入变量和函数
+			import {
+				flag,
+				sum
+			} from "./aaa.js";
+
+			if (flag) {
+				console.log('小明是开才,哈哈');
+				console.log(sum(20, 30));
+			}
+			
+			// 2, 导入变量
+			import {
+				num1,
+				height
+			} from "./aaa.js";
+
+			console.log(num1);
+			console.log(height);
+
+			// 导入函数和类
+			import {
+				mul,
+				Person
+			} from "./aaa.js";
+
+			console.log(mul(30, 50));
+			let peron = new Person();
+			person.run();
+			
+			// 导入默认,可以自己命名,也不用加上{}
+			// 但同一个里面只能有一个default
+			import home from "./aaa.js"
+			// console.log(home)
+			home("hello!")
+
+			// 使用通配符导入所有
+			import * as aaa from "./aaa.js"
+			aaa.num1;
+			aaa.mul(10, 20);
+			let p = new aaa.Person();
+			p.run();
+		</script>
+
+
+		<!-- 导入 加上type就没有命名冲突了-->
+		<!-- 加上module之后每个js文件都是独立的区域,彼此无法访问,导致代码无法复用 -->
+		<script src="aaa.js" type="module"></script>
+		<script src="bbb.js" type="module"></script>
+		<script src="mmm.js" type="module"></script>
+
+		<div id="app">
+			<h2>{{message}}</h2>
+		</div>
+
+		<script src="js/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "Hello Vue.js!"
+				}
+			})
+		</script>
+	</body>
+</html>

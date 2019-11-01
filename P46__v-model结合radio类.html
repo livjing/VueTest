@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<div id="app">
+
+			<!-- radio不加同一name无法互斥 -->
+			<!-- 加上同一name才可实现分组互斥 -->
+			<!--  
+			<label for="male">
+				<input type="radio" id="male" name="sex" value="男"/>男
+			</label>
+			<label for="female">
+				<input type="radio" id="female" name="sex" value="女"/>女
+			</label>
+			-->
+
+			<!-- v-model绑定同一个sex,可以不用加上name了,已经表示同组了,也就互斥了 -->
+			<h2>
+				<label for="male">
+					<input type="radio" id="male" value="公" v-model="sex" />公猪
+				</label>
+				<label for="female">
+					<input type="radio" id="female" value="母" v-model="sex" />母猪
+				</label>
+				<br>
+				<br>
+				你选择的性别是: {{sex}}
+			</h2>
+		</div>
+
+		<script src="js/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					// 写上默认的值, 可以在网页初次打开时,已经选择上性别
+					// 如果你写的值和radio上的value一样的话
+					sex: "无"
+				}
+			})
+		</script>
+	</body>
+</html>

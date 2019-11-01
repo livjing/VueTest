@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Title</title>
+</head>
+
+<body>
+	<div id="app">
+		<!-- 绑定唯一key,是为了插入效率-->
+		<ul>
+			<li v-for="letter in letters" :key="letter">{{letter}}</li>
+		</ul>
+		<button @click="btnClick">按钮</button>
+
+	</div>
+
+	<script src="js/vue.js"></script>
+	<script>
+		const vm = new Vue({
+			el: "#app",
+			data: {
+				letters: ['B', 'A', 'D', 'E', 'C'],
+			},
+			methods:{
+				btnClick(){
+					
+					// 1. 直接用下标修改数组数据,界面上不是响应式,但实际数据已经修改
+					// this.letters[0] = 'aaa';
+					
+					// 2-0 push 是响应式的, 在数组的最后面插入一个元素
+					// this.letters.push("aaa");
+					// this.letters.push('aaa', 'bbb', 'ccc');
+
+					// 2-1 pop 是响应式的, 删除数组最后一个元素
+					// this.letters.pop();
+
+					// 3-1 shift 在开头处删除元素
+					// this.letters.shift();
+					
+					// 3-2 unshift 在开头处添加元素
+					// this.letters.unshift('aaa');
+					// this.letters.unshift('aaa', 'bbb', 'ccc');
+					
+					// 4 可变参数,如 sum(...nums)
+					
+					// 5 删除元素
+					// 参数1: 开始位置, 参数2: 删除长度,如果不填,默认从删除位置开始删除到尾,
+					// const start = 1;
+					// this.letters.splice(start, this.letters.length-start);
+					// this.letters.splice(start);
+					
+					// 6 替换
+					// this.letters.splice(1, 3, 'm', 'n', 'l');
+					// this.letters.splice(1, 3, 'm', 'n', 'l', 'x');
+					// 理解为 从位置1开始先删除3个,然后再插入所有元素
+					// 插入
+					// 从上面衍生为只要第二个参数为0,则会直接插入
+					// this.letters.splice(1, 0, 'm', 'n', 'l', 'x');
+					
+					// 7 修改 1 this.letters[0] = 'aaa' 使之成 响应式
+					// this.letters.splice(0, 1, 'aaa');
+					// 等同于上面的方法
+					// Vue.set(this.letters, 0, 'aaa'); 
+					
+					
+					// 8 sort
+					// this.letters.sort();
+					
+					// 9 reverse
+					this.letters.reverse();
+					
+				}
+			}
+		})
+	</script>
+</body>
+
+
+
+</html>

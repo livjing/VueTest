@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			
+		</div>
+			
+		<script>
+			
+			// 1 最老的一种写法
+			const obj1 = new Object();
+			obj1.name = "liujing";
+			obj1.age = 18;
+			obj1.run = function(){
+				console.log("1-running...")
+			};
+			console.log("1", obj1);
+			obj1.run();
+			
+			// 2 比较新的写法
+			const obj2 = {
+				name: 'kobe',
+				age: 22,
+				run: function(){
+					console.log("2-running...")
+				},
+			}
+			console.log("2", obj2);
+			obj2.run();
+			
+			// 属性增强写法
+			const name = "why";
+			const age = 18;
+			
+			// 3 ES5写法
+			const obj3 = {
+				name: name,
+				age: age
+			}
+			console.log("3", obj3);
+			
+			// 4 ES6写法
+			const obj4 = {
+				name,
+				age
+			}
+			console.log("4", obj4);
+			
+			// 5 最新的函数可以简写
+			const obj5 = {	
+				run(){
+					console.log("5-running...")
+				}
+			}
+			obj5.run();
+			
+			// augular(google)
+			// TypeScript(microsoft) -> ts(类型检测)
+			// flow(facebook)
+				
+		</script>
+	</body>
+</html>

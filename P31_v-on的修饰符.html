@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Title</title>
+	<script src="js/vue.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<!-- .stop -->
+		<div @click="div1Click()">
+			aaaaa
+			<button @click.stop="btn1Click">按钮1</button>
+		</div>
+
+		<!-- .prevent -->
+		<form action="baidu">
+			<input type="submit" value="提交" @click.prevent="submitClick" />
+		</form>
+
+		<input type="text" @keyup="keyUp" />
+		<br>
+		<input type="text" @keyup.enter="keyUp" />
+		<br>
+		<input type="text" @keyup.enter.once="keyUp" />
+	</div>
+
+	<script>
+		const vm = new Vue({
+			el: "#app",
+			data: {
+				counter: 0
+			},
+			methods: {
+				btn1Click() {
+					console.log("bnt1Click...")
+				},
+				div1Click() {
+					console.log("div1Click...")
+				},
+				submitClick() {
+					console.log("submitClick...")
+				},
+				keyUp() {
+					console.log("keyUp...")
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>

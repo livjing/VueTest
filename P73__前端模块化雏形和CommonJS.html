@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<!-- CommonJS, AMD, CMD, ES6的Modules -->
+
+
+		<!-- 使用匿名函数闭包可以解决全局变量名冲突问题,但后面在代码共用上会造成很大的阻碍 -->
+		<!-- 将匿名函数赋值返回给一个对象 -->
+
+
+		<script src="js/vue.js"></script>
+		<script>
+			// 匿名函数 闭名
+			(function() {
+				var flag = true;
+			})();
+
+
+			// 匿名函数 模块化,增加复用性
+			var moudleA = (function() {
+				var obj = {};
+				obj.flag = true;
+				obj.myFunc = function(info) {
+					console.log(info);
+				}
+
+				return obj;
+			})();
+
+			aaa.js---------------------------------------------
+			var flag = true;
+
+			function sum(num1, num2) {
+				return num1 + num2;
+			}
+			
+			// 导出
+			module.exports = {
+				flag : flag, 
+				sum: sum
+			}
+			------------------------------------------
+			bbb.js 
+			// 导入
+			var {flag, sum} = require('./aaa.js');
+			
+			if (flag){
+				
+			}
+			
+			sum(10, 20);
+			
+			------------------
+			
+			
+		</script>
+	</body>
+</html>

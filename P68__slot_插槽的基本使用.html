@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<!-- 组件的插槽,让我们封装的组件更有扩展性 -->
+		<div id="app">
+			<cpn><button>按钮</button></cpn>
+			<cpn><span>呵呵</span></cpn>
+			<!-- 并且只有一个slot,却可以替换多个元素 -->
+			<cpn>
+				<i>啊啊</i>
+				<div>我是div元素</div>
+				<p>我是P元素</p>
+			</cpn>
+
+			<cpn><button>按钮</button></cpn>
+
+			<cpn></cpn>
+			<cpn></cpn>
+			<cpn></cpn>
+		</div>
+
+		<template id="cpn">
+			<div>
+				<h2>我是组件</h2>
+				<p>我是组件,哈哈哈哈</p>
+				<!-- 如果直接加按钮,会让所有的该组件都有这个按钮 -->
+				<!-- <button>按钮</button> -->
+
+				<!-- 使用slot可以让这个组件留有余地 -->
+				<!-- <slot></slot> -->
+
+				<!-- 如果组件大部分是一样的,但只有很少一部分是不一样的 -->
+				<!-- 可以设置默认标签 -->
+				<slot><button>按钮</button></slot>
+			</div>
+		</template>
+
+		<script src="js/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "Hello Vue.js!"
+				},
+				components: {
+					cpn: {
+						template: "#cpn"
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

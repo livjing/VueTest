@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<!-- 父组件 向 子组件通信  通过 props 中定义一个变量,然后通过-->
+		<div id="app">
+			
+			<!-- 4, 子组件使用v-bind绑定父组件中的data -->
+			<!-- <cpn v-bind:c_message="message" :c_movies="movies"></cpn> -->
+			
+			<!-- 4-2 不绑定c_message,由于4-2,会使用默认值 -->
+			<!-- <cpn :c_movies="movies"></cpn> -->
+			
+			<!-- 测试c_message是不是真的只能接收String或Number -->
+			<cpn :c_message="message" :c_movies="movies"></cpn>
+			<!-- <cpn :c_message="movies" :c_movies="movies"></cpn> -->
+			
+			<!-- 4-1, 如果不使用v-bind,则直接把后面的当作字符串传入 -->
+			<!-- <cpn c_message="message" c_movies="movies"></cpn> -->
+			
+			
+		</div>
+		
+		<template id="cpn">
+			<div>
+				<!-- 5, 通过3和4步骤,就可以直接在子组件中使用父类组件中的data了 -->
+				<!--但如果没有绑定该字段就直接使用,会触发你自定义的默认值 -->
+				<h2>{{c_message}}</h2>
+				
+				
+				<h2>{{c_movies}}</h2>
+				<h2>
+					<ul>
+						<li v-for="item in c_movies">{{item}}</li>
+					</ul>
+				</h2>	
+			</div>
+		</template>
+		
+		
+		<script src="js/vue.js"></script>
+		<script>
+			// 0, 增强写法
+			// const name = 'why';
+			// const obj = {
+				// 0-1. 普通写法
+				// name : name,
+				
+				// 0-2. 增强写法,两者同名可以这么做
+			// 	name
+			// };
+			
+			
+			// 1, 创建组件
+			const cpn = {
+				template: '#cpn',
+				// 3, 关键属性, 用以关联父类组件中的data
+				// 3-1 直接使用
+				// props:['c_message', 'c_movies'],
+			
+				// 3-2 类型限制使用
+				// 支持类型
+				// String, Number, Boolean, Array, Object, Date, Function, Symbol
+				props:{
+					// 4-1 直接使用
+					// c_message: String,
+					// 4-2 自定义默认值
+					c_message: {
+						type: [String, Number], 
+						// 写上默认值,如果使用该组件时,没有绑定该字段,在模板中使用会显示该默认值
+						// default: 'aaaaa',
+						
+						// 该属性是在使用该组件时,你必须要传这个参数的意思
+						// 感觉和default应该不用一起用,一个是必须,一个是你不写可以有默认值
+						// required: true
+						
+					},
+						
+					// 5-1 直接使用
+					// c_movies: Array,
+					c_movies:{
+						// 当版本较高时,类型是对象或数组时,默认值必须是一个函数
+						type:Array,
+						// default:[]
+						default(){
+							return []
+						}
+					},
+					
+					// 自定义验证函数
+					c_validator:{
+						validator(value){
+							return ['success', 'warning', 'danger'].indexOf(value) != -1;
+						},
+						// 自定义类类型
+						// author: Person
+					}
+				},
+				
+			}
+			
+			
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					// 根组件中的数据
+					// 分别测试 String,Number,Array类型的接收
+					// message: "Hello Vue.js!",
+					message: 100,
+					movies:['海王', '海贼王', '海尔兄弟'],
+				},
+				components:{
+					// 2, 注册局部组件
+					//增强写法,省略:cpn 
+					// cpn:cpn
+					cpn
+				}
+			})
+		</script>
+	</body>
+	
+	
+	
+</html>

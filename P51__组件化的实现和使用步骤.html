@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<div id="app">
+			<h2>{{message}}</h2>
+			<!-- 该节没有代码,只有概念 -->
+			<!-- 主要讲: 组件的使用分三个步骤 -->
+			<!-- 1. 创建组件构造器  Vue.extend() -->
+			<!-- 2. 注册组件 Vue.component()-->
+			<!-- 3. 使用组件 在Vue实例的作用范围内使用 -->
+			
+		</div>
+		
+		<script src="js/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "Hello Vue.js!",
+				}
+			})
+		</script>
+	</body>
+</html>

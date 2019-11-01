@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<!-- webpack -->
+		<!-- 本质上,是一个现代JavaScript应用程序的静态模块打包器(module bundler) -->
+		<!-- 模块  /   打包 -->
+		
+		<!-- 打包: -->
+		<!-- grunt/gulp 如果工程模块依赖非常简单,甚至没有用到模块化的概念,配置一系列的task,依次执行,整个流程自动化(自动化任务管理工具),模块化不是核心 -->
+		<!-- webpack -->
+		<!-- 更加强调模块化开发管理,而文件压缩合并,预处理等功能,是它附带的功能 -->
+		<!-- 依赖 Node环境(包含各种依赖包) -->
+		<!-- npm(node packages manager)工具 -->
+		<!-- 安装node.js, 自带npm , node -v 查看node版本 -->
+		<!-- npn install webpack@3.6.0 -g 全局安装 -->
+		<!--
+		C:\Users\LiuJing>webpack -v
+		One CLI for webpack must be installed. These are recommended choices, delivered as separate packages:
+		 - webpack-cli (https://github.com/webpack/webpack-cli)
+		   The original webpack full-featured CLI.
+		We will use "npm" to install the CLI via "npm install -D".
+		Do you want to install 'webpack-cli' (yes/no): yes
+		...
+		...
+		
+		+ webpack-cli@3.3.10
+		added 204 packages from 129 contributors and audited 1061 packages in 28.725s
+		found 0 vulnerabilities
+		
+		4.41.1
+		
+		C:\Users\LiuJing>webpack --version
+		4.41.1
+		
+		这里很多人说不要安装最新版的,但没有说原因
+		我还是老老实实的安装旧版的了
+		npn install webpack@3.6.0 -g
+		
+		局部安装
+		npm install webpack@3.6.0 --save-dev
+		
+		
+
+		-->
+		
+		
+		<div id="app">
+			<h2>{{message}}</h2>
+		</div>
+		
+		<script src="js/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "Hello Vue.js!"
+				}
+			})
+		</script>
+	</body>
+</html>

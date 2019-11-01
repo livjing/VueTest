@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<div id="app">
+			<h2>{{message}}</h2>
+
+
+			<!-- 多选框 -->
+			<!-- 
+			<label for="basketball">
+				<input type="checkbox" id="basketball" value="篮球" v-model="hobbies" />篮球
+			</label>
+			<br>
+			
+			<label for="football">
+				<input type="checkbox" id="football" value="足球" v-model="hobbies" />足球
+			</label>
+			<br>
+			
+			<label for="pingpong">
+				<input type="checkbox" id="pingpong" value="乒乓球" v-model="hobbies" />乒乓球
+			</label>
+			<br>
+			
+			<label for="badminton">
+				<input type="checkbox" id="badminton" value="羽毛球" v-model="hobbies" />羽毛球
+			</label>
+			<br>
+			<br>
+			 -->
+			
+			<!-- 简化以上的写法: 值绑定(这里要value与后面的内容一样的情况下) -->
+			<!-- 1 不用下面2方法label的for,也能点击文本框就能选择, why? -->
+			<label v-for="item in originHobbies">
+				<input type="checkbox" :value="item" v-model="hobbies"/>{{item}}
+				<!-- <br> -->
+			</label>
+			
+			<br>
+			<br>
+			
+			<!-- 2 -->
+			<label v-for="item in originHobbies" :for="item">
+				<input type="checkbox" :value="item" :id="item" v-model="hobbies"/>{{item}}
+				<!-- <br> -->
+			</label>
+			
+			<br>
+			<h2>你的爱好是:{{hobbies}}</h2>
+		</div>
+
+		<script src="js/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "Hello Vue.js!",
+					isAgree: false,
+					// 用于保存多选框的内容
+					hobbies: [],
+					originHobbies: ['篮球', '足球', '乒乓球', '羽毛球']
+				}
+			})
+		</script>
+	</body>
+</html>

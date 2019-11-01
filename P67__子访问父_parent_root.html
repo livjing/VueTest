@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<!-- 本节目的,子访问父,用的少,开发不建议用 -->
+		<!--  -->
+		<!--  -->
+
+		<div id="app">
+			<cpn1></cpn1>
+	
+			<cpn2></cpn2>
+
+		</div>
+
+		<template id="cpn1">
+			<div>
+				<h2>我是子组件1</h2>
+				<!-- 这是写代码时出现了错误的原因是我当时没有把button放入到div中 -->
+				<button @click="btnClick">按钮1</button>
+				
+				<cpn11></cpn11>
+			</div>
+		</template>
+
+		<template id="cpn11">
+			<div>
+				<h2>我是子组件11</h2>
+				<!-- 这是写代码时出现了错误的原因是我当时没有把button放入到div中 -->
+				<button @click="btnClick">按钮11</button>
+			</div>
+		</template>
+
+		<template id="cpn2">
+			<div>
+				<h2>我是子组件2</h2>
+				<!-- 这是写代码时出现了错误的原因是我当时没有把button放入到div中 -->
+				<button @click="btnClick">按钮2</button>
+			</div>
+		</template>
+
+		<script src="js/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "根级组件消息"
+				},
+				components: {
+					cpn1: {
+						template: "#cpn1",
+						data(){
+							return {
+								message: "一级组件1消息"
+							}
+						},
+						methods: {
+							btnClick() {
+								// 1. 访问父组件
+								console.log("1", this.$parent.message);
+								
+								// 2 直接访问根组件
+								console.log(this.$root);
+							}
+						},
+						components: {
+							cpn11: {
+								template: "#cpn11",
+								data(){
+									return {
+										message: "二级组件消息"
+									}	
+								},
+								methods: {
+									btnClick() {
+										// 1. 访问父组件
+										console.log("11", this.$parent);
+										console.log("11", this.$parent.message);
+										
+										// 2 直接访问根组件,无论中间有几个组件,也能直接跨越,直接到最根部
+										console.log(this.$root);
+										console.log(this.$root.message);
+									}
+								},
+							}
+						}
+					},
+					cpn2: {
+						template: "#cpn2",
+						data(){
+							return {
+								message: "一级组件2消息"
+							}
+						},
+						methods: {
+							btnClick() {
+								// 1. 访问父组件
+								console.log("2", this.$parent.message);
+							}
+						}
+					}
+				},
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<h2>{{message}}</h2>
+			<h2 v-text="content"></h2>
+			<h2 v-text="content">{{message}}</h2>
+		</div>
+			
+		<script>
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "我是原来的内容",
+					content: "你完了,我要替换更新你"
+				}
+			})
+		</script>
+	</body>
+</html>

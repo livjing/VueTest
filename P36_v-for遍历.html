@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Title</title>
+</head>
+
+<body>
+	<div id="app">
+		<!-- 1-1 -->
+		<ul>
+			<li v-for="name in names">{{name}}</li>
+		</ul>
+
+		<!-- 1-2 -->
+		<ul>
+			<li v-for="(name, index) in names">{{index+1}}. {{name}}</li>
+		</ul>
+
+
+		<!-- 2-1 -->
+		<ul>
+			<li v-for="item in info">{{item}}</li>
+		</ul>
+
+		<!-- 2-2 -->
+		<ul>
+			<li v-for="(item, key) in info">{{item}}-{{key}}</li>
+		</ul>
+
+		<!-- 2-3 -->
+		<ul>
+			<li v-for="(item, key, index) in info">{{item}}-{{key}}-{{index}}</li>
+		</ul>
+	</div>
+
+	<script src="js/vue.js"></script>
+	<script>
+		const vm = new Vue({
+			el: "#app",
+			data: {
+				names: ['aaa', 'bbb', 'ccc', 'ddd'],
+				info:{
+					name: 'liujing',
+					age: 18,
+					height: 1.75
+				}
+			}
+		})
+	</script>
+</body>
+
+
+
+</html>

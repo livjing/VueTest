@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 1 使用插槽默认值 -->
+			<!-- <cpn></cpn> -->
+			
+			<!-- 2 只修改中间的,但却造成了将默认值修改成所有的了 -->
+			<!-- <cpn><button>标题</button></cpn> -->
+			
+			<!-- 3 通过name指定自己要修改的slot -->
+			<cpn><i slot="center">哈哈哈</i></cpn>
+		</div>
+		
+		<template id="cpn">
+			<div>
+				<!-- 1 -->
+				<!-- 
+				<slot><span>左边</span></slot>			
+				<slot><span>中间</span></slot>
+				<slot><span>右边</span></slot> 
+				-->
+				
+				<!-- 3 加上name,可以在使用时直接修改指定的slot-->
+				<slot name="left"><span>左边</span></slot>
+				<slot name="center"><span>中间</span></slot>
+				<slot name="right"><span>右边</span></slot>
+			</div>
+		</template>
+		
+		<script src="js/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "Hello Vue.js!"
+				},
+				components:{
+					cpn:{
+						template: "#cpn"
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

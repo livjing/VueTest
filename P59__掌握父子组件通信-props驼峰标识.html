@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<div id="app">
+			<h2>{{message}}</h2>
+			
+			<!-- 显示默认值 -->
+			<cpn></cpn>
+			 
+			<!-- 显示根组件的值 -->
+			<!-- <cpn :cinfo="info"></cpn> -->
+			
+			<!-- 如果props中使用了驼峰的写法,只要在绑定时修改成c-info就可以了 -->
+			<!-- <cpn :cInfo="info"></cpn> -->
+			<cpn :c-info="info"></cpn>
+		</div>
+		
+		<!-- 模板中最好用一个root元素包含多个小元素 -->
+		<template id="cpn">
+			<div>
+				<!-- <h2>{{cinfo}}</h2> -->
+				<h2>{{cInfo}}</h2>
+			</div>
+		</template>
+		
+		<script src="js/vue.js"></script>
+		<script> 
+			
+			const cpn = {
+				template: '#cpn',
+				props:{
+					// 如果使用cInfo驼峰,v-bind不支持
+					// 所以如果使用了驼峰,则在绑定时要cInfo => c-info, childMyMessage => child-my-message
+					// vue.js:640 [Vue tip]: Prop "cinfo" is passed to component <Anonymous>, but the declared prop name is "cInfo". 
+					// Note that HTML attributes are case-insensitive and camelCased props need to use their kebab-case equivalents when using in-DOM templates. 
+					// You should probably use "c-info" instead of "cInfo".
+					
+					// cinfo:{
+					cInfo:{
+						type: Object,
+						default(){
+							return {}
+						}
+					}
+				}
+			}
+			
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "Hello Vue.js!",
+					info:{
+						name: 'why',
+						age: 18,
+						height: 1.75
+					}
+				},
+				components:{
+					cpn
+				}
+			})
+		</script>
+	</body>
+	
+	
+	
+</html>

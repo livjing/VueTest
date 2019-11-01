@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<div id="app">
+			<h2>{{message}}</h2>
+
+			<cpn1></cpn1>
+			<cpn2></cpn2>
+			<cpn3></cpn3>
+			<cpn4></cpn4>
+			<cpn5></cpn5>
+			<cpn6></cpn6>
+		</div>
+
+		<script src="js/vue.js"></script>
+
+		<!-- 模板2-1 -->
+		<script type="text/x-template" id="cpnT1">
+			<div>
+				<h2>我是标题T1</h2>
+				<p>我是内容T1,哈哈哈哈</p>
+			</div>
+		</script>
+
+		<!-- 模板2-2 -->
+		<template id="cpnT2">
+			<div>
+				<h2>我是标题T2</h2>
+				<p>我是内容T2,哈哈哈哈</p>
+			</div>
+		</template>
+
+		<script>
+			// 1. 语法糖写法,把两步合并为一步
+			Vue.component("cpn1", {
+				template: `
+				<div>
+					<h2>我是标题1</h2>
+					<p>我是内容1,哈哈哈哈</p>
+				</div>
+				`
+			});
+
+			// 2. 使用模板来简化代码
+			// 2-1 使用text/x-template
+			Vue.component("cpn2", {
+				template: '#cpnT1'
+			});
+			// 2-2 使用template
+			Vue.component("cpn3", {
+				template: '#cpnT2'
+			});
+
+			// 根组件
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "Hello Vue.js!",
+				},
+				components: {
+					// 3 局部
+					// cpn1: cpnC1,
+					
+					// 4 局部创建并注册
+					cpn4: {
+						template: `
+						<div>
+							<h2>我是标题4</h2>
+							<p>我是内容4,哈哈哈哈</p>
+						</div>
+						`
+					},
+					// 4 使用 text/x-template 模板
+					cpn5: {
+						template: '#cpnT1'
+					},
+					// 5 使用template模板
+					cpn6: {
+						template: "#cpnT2"
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

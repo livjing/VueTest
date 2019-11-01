@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<!--子组件中的两个同级元素组件之间的相互通讯,及修改影响其根组件数据-->
+		<!--该例中用了子组件中的两个输入框input -->
+		
+		<div id="app">
+
+			<!-- 3 实际关联处 -->
+			<!-- <cpn :number1="num1" :number2="num2"></cpn> -->
+			
+			<!-- 12 在11中定义了num1change及num2change,关联父类的fnum1change,fnum2change,转到13 -->
+			<cpn :number1="num1" :number2="num2" @num1change="fnum1change" @num2change="fnum2change"/>
+			
+			
+		</div>
+
+		<template id="cpn">
+			<div>
+				<h2>props:{{number1}}</h2>
+				<h2>data:{{dnumber1}}</h2>
+				
+				<!-- 4 子组件中的number1关联了父组件中的num1, 但使用v-model可直接修改父组件中的值,官方不建议 -->
+				<!-- <input type="text" v-model="number1" /> -->
+				
+				<!-- 7 这里v-model只绑定自身data中的值,所以也无法改变props中值,只能修改自身的data -->
+				<!-- <input type="text" v-model="dnumber1" /> -->
+				
+				<!-- 8 想能修改props,以下做法显然还不够,因为它只修改了dnumber1, 等同于上面的7的代码 -->
+				<!-- <input type="text" :value="dnumber1" @input="dnumber1=$event.target.value" /> -->
+				
+				<!-- 9 再次处理,封装函数,赋值dnumber1,也要告诉父组件我的dnumber1改成什么了,让父组件得到这个值修改自己的num1 -->
+				<input type="text" :value="dnumber1" @input="num1Input">
+				
+				<h2>props:{{number2}}</h2>
+				<h2>data:{{dnumber2}}</h2>
+				<!-- <input type="text" v-model="number2" /> -->
+				<!-- <input type="text" v-model="dnumber2" /> -->
+				<!-- <input type="text" :value="dnumber2" @input="dnumber2=$event.target.value" /> -->
+				<input type="text" :value="dnumber2" @input="num2Input">
+			</div>
+		</template>
+
+		<script src="js/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					
+					// 1. 放根组件需要的两个数据字段
+					num1: 1,
+					num2: 0
+				},
+				// 13 拿到子组件传递过来的值,修改自己的num1和num2
+				methods:{
+					fnum1change(value){
+						// 14 这里会报类型错误,这里默认都是String,所以使用parseFloat来转化String
+						// this.num1 = value;
+						// 把Stirng转成Float
+						this.num1 = parseFloat(value);
+					},
+					fnum2change(value){
+						// this.num2 = value;
+						this.num2 = parseFloat(value);
+					}
+				},
+				components: {
+					cpn: {
+						template: "#cpn",
+						props: {
+							// 2 它们关联了父组件中的data中num1, num2
+							number1: Number,
+							number2: Number
+						},
+						// 5 data 目的是想让v-model只修改自身(子组件)的值,不直接修改父组件,备份父组件值
+						// 因为有props,可以直接拿到父组件传过来的num1,num2=>number1,number2
+						// 子组件自身再次备份这些值为number1, number2 => dnumber1, dnumber2,而不直接修改父组件的值,避免产生错误
+						data() {
+							// 6. 别忘记写上return,函数是要返回的
+							return {
+								dnumber1: this.number1,
+								dnumber2: this.number2
+							}
+						},
+						methods:{
+							num1Input(event){
+								// 10 将dnumber1修改成输入框中用户输入的值
+								this.dnumber1 = event.target.value;
+								
+								// 11 将修改后的dnumber1通过自定义事件传递
+								this.$emit('num1change', this.dnumber1);
+								
+								// 15 这里的目的是修改dnumber1的同时能修改dnumber2
+								this.dnumber2 = this.dnumber1 * 100;
+								this.$emit('num2change', this.dnumber2);
+							},
+							num2Input(event){
+								this.dnumber2 = event.target.value;
+								this.$emit('num2change', this.dnumber2);
+								
+								// 16 这里的目的是修改dnumber2的同时能修改dnumber1
+								this.dnumber1 = this.dnumber2 / 100;
+								this.$emit('num1change', this.dnumber1);
+							}
+							
+						}
+					}
+				},
+
+			})
+		</script>
+	</body>
+</html>

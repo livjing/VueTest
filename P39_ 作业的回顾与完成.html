@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+		<style>
+			.active {
+				color: red
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<!-- 案例: 一个列表,默认第一个为红色,点击哪个,哪个变红,没被点的都是其它统一色-->
+			<ul>
+				<li v-for="(letter, index) in letters" :class="{active: curIndex===index}" @click="liClick(index)">
+					{{index}}. {{letter}}
+				</li>
+			</ul>
+
+		</div>
+
+		<script src="js/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					letters: ['AAA', 'BBB', 'CCC', 'DDD', 'EEE'],
+					curIndex: 0
+				},
+				methods: {
+					liClick(index) {
+						this.curIndex = index;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

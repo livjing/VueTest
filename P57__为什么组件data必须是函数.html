@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 3 -->
+			<!-- 显然三个计数器分别有自己独立的计数器,并未产生共用的问题 -->
+			<!-- 原因是这个计数器变量是在函数的作用域中 -->
+			<!-- 函数中的变量每个都是独立的 -->
+			<cpn1></cpn1>
+			<cpn1></cpn1>
+			<cpn1></cpn1>
+			
+			<!-- 4 新的问题:如果我想共用呢? -->
+			<!-- 只要创建一个变量,作为全局变量使用 -->
+		</div>
+		
+		<!-- 模板方法 -->
+		<template id="cpnT1">
+			<div>
+				<h2>当前计数:{{counter}}</h2>
+				<button @click="increment">+</button>
+				<button @click="decrement">-</button>
+			</div>
+		</template>
+		
+		<script src="js/vue.js"></script>
+		<script>
+			
+			// 1-1, 相当于创建了一个全局变量,大家共用
+			// 然后在 1-2 中return 返回赋值
+			// 这样导致的后果是所有计数器共用一个计算变量
+			const obj = {
+				counter: 0
+			}
+			
+			Vue.component("cpn1", {
+				template: '#cpnT1',
+				data(){
+					// 5 组件为什么要data必须是函数,是因为它有自己独立的作用域
+					// 每个在其生成的变量都是一个独立的个体
+					
+					// 1-2, 共用的写法,这里返回的相当于引用或指针
+					return obj;
+					
+					// 2, 不共用的写法
+					// return {
+					// 	counter: 0
+					// }
+				},
+				methods:{
+					increment(){
+						this.counter++;
+					},
+					decrement(){
+						this.counter--;
+					}
+				}
+			});
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "Hello Vue.js!",
+				}
+			})
+		</script>
+	</body>
+	
+	
+	
+</html>

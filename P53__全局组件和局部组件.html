@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 3-1. 使用组件 -->
+			<!-- 优雅的模板组件使用 -->
+			<!-- 修改时也只需要修改一处 -->
+			<cpn></cpn>
+			<!-- 全局组修改为局部组件后,app中可以使用,因为局部组件在app中 -->
+
+		</div>
+		
+		<hr>
+
+		<div id="app2">
+			<!-- 3-2. 使用组件 -->
+			<!-- 优雅的模板组件使用 -->
+			<!-- 修改时也只需要修改一处 -->
+			<!-- 如果去除全局注册组件, app2显然无法再使用该组件了 -->
+			<!-- 该处无法使用局部组件 -->
+			<cpn></cpn>
+			
+		</div>
+
+		<script src="js/vue.js"></script>
+		<script>
+			// ES6 语法
+			// " " 无法换行,要加上+号
+			// ~号下面的那个``可以换行输入内容,无需使用+连接
+
+			// 1. 创建组件构造器对象
+			// 全局组件
+			const cpn_ctn = Vue.extend({
+				template: `
+				<div>
+					<h2>我是组件标题</h2>
+					<p>我是组件内容,哈哈哈哈</p>
+					<p>我是组件内容,呵呵呵呵</p>
+				</div>
+				`
+			})
+
+			// 2. 注册组件,全局注册
+			// Vue.component('cpn', cpn_ctn);
+			
+			// 3. 使用组件
+			// 3-1
+			// 3-2
+
+
+			// 4. 问题: 既然有全局组件,当然也有局部组件
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "Hello Vue.js!",
+				},
+				components:{
+					// 局部组件
+					cpn: cpn_ctn 
+				}
+			});
+			
+			const vm2 = new Vue({
+				el: "#app2"
+			})
+		</script>
+	</body>
+	<!-- 总结:一般不会创建多个Vue实例,所以一般也只会使用局部组件 -->
+
+	
+</html>

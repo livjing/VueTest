@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<div id="app">
+			
+			<!-- 1 -->
+			<!-- 复制粘贴的低级手法,调用几次贴几次 -->
+			<!-- 如果调用重复代码的地方比较多,修改时会很麻烦 -->
+			<!-- 因为你调用了几次,就要修改几次,还有可能会遗漏 -->
+			<h2>我是标题</h2>
+			<p>我是内容,哈哈哈哈</p>
+			<p>我是内容,呵呵呵呵</p>
+
+			<h2>我是标题</h2>
+			<p>我是内容,哈哈哈哈</p>
+			<p>我是内容,呵呵呵呵</p>
+
+			<h2>我是标题</h2>
+			<p>我是内容,哈哈哈哈</p>
+			<p>我是内容,呵呵呵呵</p>
+
+
+			<hr>
+			<!-- 2. 使用组件 -->
+			<!-- 优雅的模板组件使用 -->
+			<!-- 修改时也只需要修改一处 -->
+			<my-cpn></my-cpn>
+			<my-cpn></my-cpn>
+			<my-cpn></my-cpn>
+		</div>
+
+		<script src="js/vue.js"></script>
+		<script>
+			// ES6 语法
+			// " " 无法换行,要加上+号
+			// ~号下面的那个``可以换行输入内容,无需要+
+
+			// 3. 创建组件构造器对象
+			const cpn_ctn = Vue.extend({
+				template: `
+				<div>
+					<h2>我是组件标题</h2>
+					<p>我是组件内容,哈哈哈哈</p>
+					<p>我是组件内容,呵呵呵呵</p>
+				</div>
+				`
+			})
+
+			// 4. 注册组件
+			Vue.component('my-cpn', cpn_ctn);
+			
+			// 5. 使用组件,请看上面的2
+
+
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "Hello Vue.js!",
+				}
+			})
+		</script>
+	</body>
+
+
+
+</html>

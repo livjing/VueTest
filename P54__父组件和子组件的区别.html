@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<div id="app">
+			<h2>{{message}}</h2>
+			
+			<hr>
+			<!-- 这时cpn1无法在这里使用了,它成了cpn2的儿子 -->
+			<!-- <cpn1></cpn1> -->
+			
+			<cpn2></cpn2>
+		</div>
+		
+		<script src="js/vue.js"></script>
+		<script>
+			// 1. 创建第一个组件
+			const cpnC1 = Vue.extend({
+				template:`
+				<div>
+					<h2>我是标题1</h2>
+					<p>我是内容1,哈哈哈哈</p>
+				</div>
+				`
+			});
+			
+			// 2. 创建第二个组件,最终render
+			// 同时,让第一个组件为自己的子组件
+			const cpnC2 = Vue.extend({
+				// 这里的 <cpn1></cpn1> 会先找本实例中的,如果找不到,会再找全局的
+				template:`
+				<div>
+					<h2>我是标题2</h2>
+					<p>我是内容2,哈哈哈哈</p>
+					<cpn1></cpn1>
+				</div>
+				`,
+				components:{
+					// 3.注册组件1为自己的子组件
+					cpn1: cpnC1
+				}
+			});
+			
+			
+			// 这为root根组件
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "Hello Vue.js!",
+				},
+				components:{
+					// 4
+					// 这种写法,cpn1 与 cpn2 关系为同级
+					// cpn1: cpnC1,
+					cpn2: cpnC2
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Title</title>
+	</head>
+	<body>
+		<div id="app">
+			<h2>{{message}}</h2>
+			
+			<cpn1></cpn1>
+			<cpn2></cpn2>
+			<cpn3></cpn3>
+		</div>
+		
+		<script src="js/vue.js"></script>
+		<script>
+			// 1. 创建第一个组件
+			const cpnC1 = Vue.extend({
+				template:`
+				<div>
+					<h2>我是标题1</h2>
+					<p>我是内容1,哈哈哈哈</p>
+				</div>
+				`
+			});
+			
+			// 2. 全局注册cpn1
+			Vue.component("cpn1", cpnC1);
+			
+			// 3 语法糖写法,把上面的两步合并为一步
+			// 合并了1和2的步骤
+			// 创建的同时,又注册了全局组件cpn2
+			Vue.component("cpn2", { 
+				template:`
+				<div>
+					<h2>我是标题2</h2>
+					<p>我是内容2,哈哈哈哈</p>
+				</div>
+				`
+			})
+			
+			// 根组件
+			const vm = new Vue({
+				el: "#app",
+				data: {
+					message: "Hello Vue.js!",
+				},
+				components:{
+					// 4 这里可以局部注册cpn1,但要注释掉 步骤2
+					// cpn1: cpnC1,
+					
+					// 5 局部创建并注册cpn3
+					cpn3:{
+						template:`
+						<div>
+							<h2>我是标题3</h2>
+							<p>我是内容3,哈哈哈哈</p>
+						</div>
+						`
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
